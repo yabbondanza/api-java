@@ -1,6 +1,7 @@
 package estudos.yasmim.apijava.controller;
 
 import estudos.yasmim.apijava.domain.Alunos;
+import estudos.yasmim.apijava.service.AlunoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,9 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 public class AlunoController {
-
-    @GetMapping(path = "list")
+    private final AlunoService alunoService;
+    @GetMapping
     public List<Alunos> list(){
-        return List.of(new Alunos("João"), new Alunos("Maria"));
+        return alunoService.listAll();
     }
 }
