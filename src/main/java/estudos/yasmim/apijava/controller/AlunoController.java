@@ -4,9 +4,9 @@ import estudos.yasmim.apijava.domain.Alunos;
 import estudos.yasmim.apijava.service.AlunoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +17,17 @@ import java.util.List;
 public class AlunoController {
     private final AlunoService alunoService;
     @GetMapping
-    public List<Alunos> list(){
-        return alunoService.listAll();
+    public ResponseEntity<List<Alunos>> list(){
+        return new ResponseEntity<>(alunoService.listAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Alunos> findById(@PathVariable long id){
+        return new ResponseEntity<>(alunoService.findByid(id), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Alunos> save(@RequestBody Alunos alunos){
+        return ResponseEntity.ok(alunoService.save(alunos));
     }
 }
