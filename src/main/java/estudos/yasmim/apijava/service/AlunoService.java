@@ -12,14 +12,17 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class AlunoService {
     private static List<Alunos> aluno;
+
     static {
-        aluno = new ArrayList<>(List.of(new Alunos(1L, "João"), new Alunos(2L, "Maria")));
+        aluno = new ArrayList<>(List.of(new Alunos(1L, "João",
+                "123.456.789-10", "joao@gmail.com", "12/05/2001")));
     }
-    public List<Alunos> listAll(){
+
+    public List<Alunos> listAll() {
         return aluno;
     }
 
-    public Alunos findByid(long id){
+    public Alunos findByid(long id) {
         return aluno.stream()
                 .filter(alunos -> alunos.getId().equals(id))
                 .findFirst()
@@ -30,5 +33,14 @@ public class AlunoService {
         alunos.setId(ThreadLocalRandom.current().nextLong(3, 10000));
         aluno.add(alunos);
         return alunos;
-        }
+    }
+
+    public void delete(long id) {
+        aluno.remove(findByid(id));
+    }
+
+    public void replace(Alunos alunos) {
+        delete(alunos.getId());
+        aluno.add(alunos);
+    }
 }

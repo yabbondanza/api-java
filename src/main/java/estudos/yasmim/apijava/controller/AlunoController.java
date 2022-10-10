@@ -28,6 +28,18 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<Alunos> save(@RequestBody Alunos alunos){
-        return ResponseEntity.ok(alunoService.save(alunos));
+        return new ResponseEntity<>(alunoService.save(alunos), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        alunoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Alunos alunos){
+        alunoService.replace(alunos);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

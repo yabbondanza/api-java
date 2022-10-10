@@ -8,4 +8,7 @@ import lombok.Data;
 public class Alunos {
     private Long id;
     private String nome;
+    private String cpf;
+    private String email;
+    private String dataNascimento;
 }
